@@ -83,7 +83,11 @@ npm test
 ```
 ## 🛠 Tecnologías
 TypeScript
+
 Fastify
+
 Luxon
-Zod (validación de inputs)
+
+Zod (validación de inputs) 
+
 Vitest (tests)
