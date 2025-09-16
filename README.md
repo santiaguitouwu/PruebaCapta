@@ -1,4 +1,4 @@
-# 📅Working Days Colombia API
+# 📅 Prueba Capta API
 
 API REST en **TypeScript + Fastify** que calcula **fechas y horas hábiles en Colombia**, teniendo en cuenta:
 
@@ -12,14 +12,14 @@ API REST en **TypeScript + Fastify** que calcula **fechas y horas hábiles en Co
 
 ---
 
-##🚀 Requerimiento
+## 🚀 Requerimiento
 
 Este proyecto corresponde a la **Prueba Técnica de Fechas Hábiles**.
 La API recibe una cantidad de **días** y/o **horas** hábiles a sumar a partir de una fecha base, y devuelve la fecha resultante en UTC.
 
 ---
 
-##▶️ Ejecución
+## ▶️ Ejecución
 
 Arranca el servidor en modo desarrollo:
 ```bash
@@ -29,7 +29,7 @@ npm run dev
 Por defecto queda disponible en:
 http://localhost:3000
 
-##⚙️ Configuración
+## ⚙️ Configuración
 
 | Variable                     | Descripción                            | Default                                                 |
 | ---------------------------- | -------------------------------------- | ------------------------------------------------------- |
@@ -44,38 +44,39 @@ Calcula la nueva fecha hábil.
 
 Query params:
 
-days (opcional, entero positivo) → número de días hábiles a sumar
+    days (opcional, entero positivo) → número de días hábiles a sumar
+    hours (opcional, entero positivo) → número de horas hábiles a sumar
+    date (opcional, ISO 8601 en UTC con sufijo Z) → fecha/hora inicial. Si no se pasa, se toma el momento actual en Bogotá.
 
-hours (opcional, entero positivo) → número de horas hábiles a sumar
-
-date (opcional, ISO 8601 en UTC con sufijo Z) → fecha/hora inicial
-
-Si no se pasa, se toma el momento actual en Bogotá.
-
-Si se envían ambos parámetros, primero se suman los días y luego las horas.
-Si no se envía ninguno → error 400.
+    Si se envían los parámetros days y hours, primero se suman los días y luego las horas.
+    Si no se envía ninguno → error 400.
 
 Respuesta exitosa:
+```json
 {
   "date": "2025-08-01T14:00:00Z"
 }
-
+```
 Errores:
+```json
 { "error": "InvalidParameters", "message": "Detalle del error" }
-
-Códigos posibles:
+```
+Códigos HTTP de respuesta posibles:
 400 → parámetros inválidos o faltantes
 503 → error al obtener festivos
 500 → error interno inesperado
 
 ### GET /health
-Check básico de salud:
+Check básico de salud
+Respuesta exitosa:
+```json
 { "ok": true }
-
+```
 
 ## 🧪 Tests
+```bash
 npm test
-
+```
 ## 🛠 Tecnologías
 TypeScript
 Fastify
