@@ -20,6 +20,10 @@ La API recibe una cantidad de **días** y/o **horas** hábiles a sumar a partir 
 ---
 
 ## ▶️ Ejecución
+Instalación de dependecias:
+```bash
+npm i
+```
 
 Arranca el servidor en modo desarrollo:
 ```bash
