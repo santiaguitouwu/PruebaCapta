@@ -1,0 +1,82 @@
+# 📅 Working Days Colombia API
+
+API REST en **TypeScript + Fastify** que calcula **fechas y horas hábiles en Colombia**, teniendo en cuenta:
+
+- **Días festivos nacionales** (se consultan desde [Capta](https://content.capta.co/Recruitment/WorkingDays.json))
+- **Horario laboral: lunes a viernes**
+  - Mañana: 08:00–12:00
+  - Almuerzo: 12:00–13:00
+  - Tarde: 13:00–17:00
+- **Zona horaria** local (`America/Bogota`) para los cálculos
+- **Respuesta final en UTC** (ISO 8601 con sufijo `Z`)
+
+---
+
+## 🚀 Requerimiento
+
+Este proyecto corresponde a la **Prueba Técnica de Fechas Hábiles**.
+La API recibe una cantidad de **días** y/o **horas** hábiles a sumar a partir de una fecha base, y devuelve la fecha resultante en UTC.
+
+---
+
+##▶️ Ejecución
+
+Arranca el servidor en modo desarrollo:
+npm run dev
+
+Por defecto queda disponible en:
+http://localhost:3000
+
+##⚙️ Configuración
+
+| Variable                     | Descripción                            | Default                                                 |
+| ---------------------------- | -------------------------------------- | ------------------------------------------------------- |
+| `PORT`                       | Puerto del servidor local              | `3000`                                                  |
+| `HOLIDAYS_URL`               | URL de días festivos nacionales        | `https://content.capta.co/Recruitment/WorkingDays.json` |
+| `HOLIDAYS_CACHE_TTL_MINUTES` | TTL de caché de festivos (minutos)     | `1440` (24 horas)                                       |
+
+## 📡 Endpoints
+### GET /api/calculate
+
+Calcula la nueva fecha hábil.
+
+Query params:
+
+days (opcional, entero positivo) → número de días hábiles a sumar
+
+hours (opcional, entero positivo) → número de horas hábiles a sumar
+
+date (opcional, ISO 8601 en UTC con sufijo Z) → fecha/hora inicial
+
+Si no se pasa, se toma el momento actual en Bogotá.
+
+Si se envían ambos parámetros, primero se suman los días y luego las horas.
+Si no se envía ninguno → error 400.
+
+Respuesta exitosa:
+{
+  "date": "2025-08-01T14:00:00Z"
+}
+
+Errores:
+{ "error": "InvalidParameters", "message": "Detalle del error" }
+
+Códigos posibles:
+400 → parámetros inválidos o faltantes
+503 → error al obtener festivos
+500 → error interno inesperado
+
+### GET /health
+Check básico de salud:
+{ "ok": true }
+
+
+## 🧪 Tests
+npm test
+
+## 🛠 Tecnologías
+TypeScript
+Fastify
+Luxon
+Zod (validación de inputs)
+Vitest (tests)

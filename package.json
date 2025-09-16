@@ -1,0 +1,28 @@
+{
+  "name": "working-time-colombia",
+  "version": "1.0.0",
+  "description": "API REST en TypeScript para sumar días/horas hábiles en Colombia y devolver resultado en UTC.",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/index.js",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "constructs": "^10.4.2",
+    "fastify": "4.28.1",
+    "luxon": "3.5.0",
+    "undici": "6.20.1",
+    "zod": "3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "20.14.12",
+    "tsx": "4.19.2",
+    "typescript": "5.6.2",
+    "vitest": "2.0.5"
+  },
+  "engines": {
+    "node": ">=20.10.0"
+  }
+}
