@@ -41,9 +41,35 @@ http://localhost:3000
 | `HOLIDAYS_URL`               | URL de días festivos nacionales        | `https://content.capta.co/Recruitment/WorkingDays.json` |
 | `HOLIDAYS_CACHE_TTL_MINUTES` | TTL de caché de festivos (minutos)     | `1440` (24 horas)                                       |
 
+
+## ☁️ Despliegue en AWS Lambda
+
+Esta API está desplegada en **AWS Lambda**, expuesta a través de **API Gateway**.
+
+### Adaptación a Lambda
+- Se utiliza el paquete [`aws-lambda-fastify`](https://github.com/fastify/aws-lambda-fastify) para ejecutar el servidor Fastify dentro de Lambda.
+- El archivo `src/lambda.ts` exporta un `handler` que es el entrypoint de la función.
+
+### Infraestructura como código
+- La infraestructura se define con **AWS CDK** (`cdk/lib/working-days-stack.ts`).
+- El stack crea:
+    - Una función **Lambda** (`Node.js 20`)
+    - Un **API Gateway REST** conectado a la Lambda
+- Variables de entorno (`HOLIDAYS_URL`, `HOLIDAYS_CACHE_TTL_MINUTES`) se inyectan automáticamente.
+
+### Comandos principales
+```bash
+# Inicializar bootstrap de CDK (una vez por cuenta/region), ejecución en /cdk
+cdk bootstrap
+
+# Compilar la función Lambda, ejecución en / (raíz)
+npm run build:lambda
+
+# Desplegar el stack, ejecución en /cdk
+cdk deploy
+```
 ## 📡 Endpoints
 ### GET /api/calculate
-
 Calcula la nueva fecha hábil.
 
 Query params:

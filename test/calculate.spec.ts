@@ -1,6 +1,5 @@
-import { describe, it, expect, beforeAll, vi } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import { buildServer } from '../src/server.js';
-import { holidaysCache } from '../src/lib/holidays.js';
 
 describe('GET /api/calculate', () => {
     const app = buildServer();
